@@ -4,6 +4,8 @@ import * as ListRenderer from "./js-listRenderer.js";
 import { MemberRenderer } from "./js-memberRenderer.js";
 import { ResultRenderer } from "./js-resultRenderer.js";
 
+// opgave beskrivelse: https://race.notion.site/petlatkea/ListRenderer-3bcc137c27904a90b2898c18016b3040
+
 main();
 
 async function main() {
