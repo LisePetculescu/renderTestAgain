@@ -18,6 +18,8 @@ async function main() {
   // showResults(results);
   const resultList = ListRenderer.construct(results, "table#resultsTable tbody", ResultRenderer);
   resultList.render();
+
+  document.querySelectorAll("#membersTable [data-action=sort]").forEach((sort) => sort.addEventListener("click", () => memberList.sortBy(sort.dataset.sortBy)));
 }
 
 const members = [];
@@ -36,6 +38,32 @@ async function buildMembersList() {
     members.push(memberObj);
   }
 }
+
+const results = [];
+
+async function fetchResults() {
+  const resp = await fetch("results.json");
+  const data = await resp.json();
+  return data;
+}
+
+async function pushResultsToList() {
+  const resultsObjects = await fetchResults();
+
+  for (const oldResultObj of resultsObjects) {
+    const resultObj = result.construct(oldResultObj);
+    results.push(resultObj);
+  }
+}
+
+function matchResultMember(memberId, members) {
+  const matchingMember = members.find((member) => member._id === memberId);
+  // console.log("Matching Member:", matchingMember);
+
+  return matchingMember;
+}
+
+export { matchResultMember, members };
 
 // function displayMembers(members) {
 //   const table = document.querySelector("table#membersTable tbody");
@@ -60,23 +88,6 @@ async function buildMembersList() {
 //     table.insertAdjacentHTML("beforeend", html);
 //   }
 // }
-
-const results = [];
-
-async function fetchResults() {
-  const resp = await fetch("results.json");
-  const data = await resp.json();
-  return data;
-}
-
-async function pushResultsToList() {
-  const resultsObjects = await fetchResults();
-
-  for (const oldResultObj of resultsObjects) {
-    const resultObj = result.construct(oldResultObj);
-    results.push(resultObj);
-  }
-}
 
 // function showResults(results) {
 //   results.sort((a, b) => a.milisecTime - b.milisecTime);
@@ -121,12 +132,3 @@ async function pushResultsToList() {
 //     table.insertAdjacentHTML("beforeend", html);
 //   }
 // }
-
-function matchResultMember(memberId, members) {
-  const matchingMember = members.find((member) => member._id === memberId);
-  // console.log("Matching Member:", matchingMember);
-
-  return matchingMember;
-}
-
-export { matchResultMember, members };

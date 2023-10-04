@@ -29,21 +29,24 @@ function construct(memberdata) {
     get active() {
       return this._active ? "Aktiv" : "Inaktiv";
     },
+    get fullName() {
+      return this.firstName + " " + this.lastName;
+    }
   };
 
   Object.defineProperties(MemberObject, {
     _id: {
-      writable: false,
+      writable: false
     },
     firstName: {
-      enumerable: false,
+      enumerable: false
     },
     lastName: {
-      enumerable: false,
+      enumerable: false
     },
     image: {
-      enumerable: false,
-    },
+      enumerable: false
+    }
   });
 
   // kan ændre property value, men ikke tilføje properties

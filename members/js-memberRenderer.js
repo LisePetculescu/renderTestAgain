@@ -1,10 +1,10 @@
 export const MemberRenderer = {
   render(member) {
-    const name = member.firstName + " " + member.lastName;
+    // const name = member.firstName + " " + member.lastName;
 
     const html = /*html*/ `
     <tr>
-      <td>${name}</td>
+      <td>${member.fullName}</td>
       <td>${member.active}</td>
       <td>${member.birthday.toLocaleString("da", {
         day: "numeric",
